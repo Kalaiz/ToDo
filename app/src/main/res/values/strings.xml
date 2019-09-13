@@ -8,4 +8,5 @@
     <string name="set_priority">Set Priority</string>
     <string name="add">Add</string>
     <string name="clear_all_data">Clear All data</string>
+    <string name="delete_all">Delete All</string>
 </resources>

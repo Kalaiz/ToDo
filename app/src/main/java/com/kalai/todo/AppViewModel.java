@@ -22,6 +22,7 @@ public class AppViewModel extends AndroidViewModel{
         repository.insert(todo);
     }
 
+    public void deleteAll(){repository.deleteAll();}
     LiveData<List<Todo>> getAllToDos(){
         return toDosList;}
 
