@@ -38,6 +38,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.toDoViewHolder
         return todoList.size();
        return 0;
     }
+    public Todo getToDO(int position){
+       return todoList.get(position);
+    }
 
     public void setTodoList(List<Todo> todoList) {
         this.todoList = todoList;

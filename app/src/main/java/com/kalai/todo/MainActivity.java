@@ -58,8 +58,24 @@ public class MainActivity extends AppCompatActivity {
                 toDoadapter.setTodoList(todos);
             }
         });
+        ItemTouchHelper helper=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
 
-      
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+                int position=viewHolder.getAdapterPosition();
+                Todo todo=toDoadapter.getToDO(position);
+                Toast.makeText(getApplicationContext(),"Deleted "+todo.getTodoText(),Toast.LENGTH_SHORT).show();
+                ((AppViewModel) viewModel).delete(todo);
+
+            }
+        });
+        helper.attachToRecyclerView(toDoRecyclerView);
+
     }
 
     @Override
