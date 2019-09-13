@@ -143,4 +143,9 @@ public class MainActivity extends AppCompatActivity  implements EditDialogFragme
         viewModel.delete(toDoadapter.getTodo(position));
         viewModel.insert(new Todo(todo,0,0,priority));
     }
+
+    @Override
+    public void noUpdate() {
+        Toast.makeText(this,"Todo wasnt updated",Toast.LENGTH_SHORT).show();
+    }
 }

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 
 
+
 public class EditDialogFragment extends DialogFragment {
 
     RatingBar priorityFragRatingBar;
@@ -55,7 +56,9 @@ public class EditDialogFragment extends DialogFragment {
                 Float  updatedTodoPriority=priorityFragRatingBar.getRating();
                 if(updatedTodoText.isEmpty()
                         ||listener==null||(updatedTodoPriority.equals(existingTodoPriority) && updatedTodoText.equals(existingTodoText))){
-
+                    if(listener!=null){
+                        listener.noUpdate();
+                    }
                     getDialog().dismiss();
                 }
                 else{
