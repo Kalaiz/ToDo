@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+
 
 import java.util.List;
 
@@ -16,11 +17,12 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.toDoViewHolder
 
     private LayoutInflater layoutInflater;
     private List<Todo> todoList;
-
-
+    private Context context;
 
    ToDoAdapter(Context context){
         layoutInflater=LayoutInflater.from(context);
+        this.context=context;
+
     }
 
     @NonNull
@@ -35,6 +37,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.toDoViewHolder
        Todo todo=todoList.get(i);
     String todoText =todo.getTodoText();
     float priority=todo.getPriority();
+    toDoViewHolder.priority=priority;
+    toDoViewHolder.todoText=todoText;
+    toDoViewHolder.position=i;
     if(priority>=3.5){
         toDoViewHolder.titleTextView.setBackgroundColor(Color.rgb(248,110,110));
     }
@@ -53,7 +58,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.toDoViewHolder
         return todoList.size();
        return 0;
     }
-    public Todo getToDO(int position){
+    public Todo getTodo(int position){
        return todoList.get(position);
     }
 
@@ -62,15 +67,26 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.toDoViewHolder
         notifyDataSetChanged();
     }
 
-    class toDoViewHolder extends RecyclerView.ViewHolder{
+    public class toDoViewHolder extends RecyclerView.ViewHolder {
         private TextView titleTextView;
+        public String todoText;
+        public float priority;
+        int position;
         private toDoViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView=itemView.findViewById(R.id.titleTextView);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   MainActivity.sendToEditDialogFragment(position,todoText,priority,context);
+                }
+            });
 
 
 
         }
+
+
     }
 }

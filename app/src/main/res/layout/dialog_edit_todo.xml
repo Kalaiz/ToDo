@@ -2,13 +2,11 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".NewToDo">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/todoTextView"
+        android:id="@+id/todoFragTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -19,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/todoEditText"
+        android:id="@+id/todoFragEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -29,39 +27,39 @@
         android:hint="@string/todo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/todoTextView"
+        app:layout_constraintTop_toBottomOf="@+id/todoFragTextView"
         />
 
     <TextView
-        android:id="@+id/priorityTextView"
+        android:id="@+id/priorityFragTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/set_priority"
-        app:layout_constraintEnd_toEndOf="@+id/todoEditText"
+        app:layout_constraintEnd_toEndOf="@+id/todoFragEditText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/todoEditText"  />
+        app:layout_constraintTop_toBottomOf="@id/todoFragEditText"  />
 
     <RatingBar
-        android:id="@+id/priorityRatingBar"
+        android:id="@+id/priorityFragRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/priorityTextView" />
+        app:layout_constraintTop_toBottomOf="@id/priorityFragTextView" />
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/editFragButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add"
-        android:onClick="add"
+        android:text="@string/edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/priorityRatingBar"  />
+        app:layout_constraintTop_toBottomOf="@id/priorityFragRatingBar"  />
+
 
 
 </android.support.constraint.ConstraintLayout>

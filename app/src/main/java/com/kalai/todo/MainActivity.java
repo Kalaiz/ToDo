@@ -2,8 +2,8 @@ package com.kalai.todo;
 
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,13 +20,17 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements EditDialogFragmentListener{
 
 
-    private ViewModel viewModel;
+    private AppViewModel viewModel;
     private ToDoAdapter toDoadapter;
     private RecyclerView toDoRecyclerView;
     private static final int NEW_TODO_REQUEST = 1;
+    public static final String TODO_TAG="com.kalai.todo.MainActivity.TODO";
+    public static final String TODO_POSITION="com.kalai.todo.MainActivity.TODO_POSITION";
+    public static final String TODO_PRIORITY_TAG="com.kalai.todo.MainActivity.TODO_PRIORITY";
+
 
 
 
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(),NewToDo.class);
-            startActivityForResult(intent,NEW_TODO_REQUEST);
+                startActivityForResult(intent,NEW_TODO_REQUEST);
             }
         });
 
@@ -68,9 +72,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 int position=viewHolder.getAdapterPosition();
-                Todo todo=toDoadapter.getToDO(position);
+                Todo todo=toDoadapter.getTodo(position);
                 Toast.makeText(getApplicationContext(),"Deleted "+todo.getTodoText(),Toast.LENGTH_SHORT).show();
-                ((AppViewModel) viewModel).delete(todo);
+                viewModel.delete(todo);
+
 
             }
         });
@@ -91,10 +96,9 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        viewModel= ViewModelProviders.of(this).get(AppViewModel.class);
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete_all) {
-            ((AppViewModel) viewModel).deleteAll();
+            viewModel.deleteAll();
             Toast.makeText(this,"Cleared the database",Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -111,9 +115,9 @@ public class MainActivity extends AppCompatActivity {
                 msgID=R.string.Toast_msg_new_todo_success;
                 assert data != null;
                 float priority= data.getFloatExtra(NewToDo.EXTRA_PRIORITY,1.0f);
-               String todo=data.getStringExtra(NewToDo.EXTRA_TODO);
-                viewModel= ViewModelProviders.of(this).get(AppViewModel.class);
-                ((AppViewModel) viewModel).insert(new Todo(todo,0,0,priority));
+                String todo=data.getStringExtra(NewToDo.EXTRA_TODO);
+
+                viewModel.insert(new Todo(todo,0,0,priority));
 
             }
             else{
@@ -122,5 +126,21 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,getString(msgID),Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+
+    public static void sendToEditDialogFragment(int position,String todoText, Float priority, Context context){
+        EditDialogFragment dialogFragment=new EditDialogFragment();
+        Bundle args=new Bundle();
+        args.putString(TODO_TAG,todoText);
+        args.putFloat(TODO_PRIORITY_TAG,priority);
+        args.putInt(TODO_POSITION,position);
+        dialogFragment.setArguments(args);
+        dialogFragment.show(((MainActivity)context).getSupportFragmentManager(),EditDialogFragment.TAG);
+    }
+    @Override
+    public void receiveEditDialogFragment(int position,String todo, Float priority) {
+        viewModel.delete(toDoadapter.getTodo(position));
+        viewModel.insert(new Todo(todo,0,0,priority));
     }
 }
