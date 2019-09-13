@@ -27,7 +27,7 @@ public class NewToDo extends AppCompatActivity {
 
     public void add(View view) {
         String todo=todoEditText.getText().toString();
-        float rating=ratingBar.getNumStars();
+        float rating=ratingBar.getRating();
         Intent intent=new Intent();
         if (todo.isEmpty()){
             setResult(RESULT_CANCELED,intent);
