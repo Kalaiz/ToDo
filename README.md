@@ -1,5 +1,7 @@
 # ToDo App
 ![Android CI](https://github.com/Kalaiz/ToDo/workflows/Android%20CI/badge.svg)
+![Status](https://img.shields.io/badge/status-viewable-green)
+
 ## Table of Content:
 - [Description](#-description)
 - [Tools Used](#%EF%B8%8F-tools-used)
