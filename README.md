@@ -13,7 +13,7 @@
 A simple _To-Do_ utility Android app in which one can set priority for each To-Do. Each priority set for each _To-Do_ is displayed via an appropriate color. This app is built on a MVVM architecture.
 
 <p align="center">
-<img src="/Resources/App_Overview.gif" width="25%" height="25%" />
+<img src="/resources/App_Overview.gif" width="25%" height="25%" />
 </p>
 
 ### 🛠️ Tools Used:
